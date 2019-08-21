@@ -56,7 +56,7 @@ int main(int argc, char **argv)
 	char path[20];
 	sprintf(path, "/dev/i2c-%d", i2c_bus);
 	dev->fd = VL53L0X_i2c_init(path, i2c_address);
-	if (sensor->fd < 0) {
+	if (dev->fd < 0) {
         ROS_FATAL("Failed to open connection\n");
         ros::shutdown();
     }
