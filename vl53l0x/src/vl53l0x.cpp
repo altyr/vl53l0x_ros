@@ -50,10 +50,12 @@ int main(int argc, char **argv)
 
 	// Setup I2C bus
 	VL53L0X_Dev_t sensor;
-	VL53L0X_DEV dev = *sensor;
+	VL53L0X_DEV dev = &sensor;
 	dev->fd = -1;
     dev->I2cDevAddr = i2c_address;
-	dev->fd = VL53L0X_i2c_init(sprintf(filename, "/dev/i2c-%d", i2c_bus), i2c_address);
+	char path[20];
+	sprintf(path, "/dev/i2c-%d", i2c_bus);
+	dev->fd = VL53L0X_i2c_init(path, i2c_address);
 	if (sensor->fd < 0) {
         ROS_FATAL("Failed to open connection\n");
         ros::shutdown();
@@ -116,7 +118,7 @@ int main(int argc, char **argv)
 		VL53L0X_StartMeasurement(dev);
 
 		// Check measurement for validness
-		if (measurement_data.RangeStatus != VL53L0X_RANGESTATUS_RANGE_VALID) {
+		if (measurement_data.RangeStatus != 0) {
 			char range_status[VL53L0X_MAX_STRING_LENGTH];
 			VL53L0X_GetRangeStatusString(measurement_data.RangeStatus, range_status);
 			ROS_DEBUG("Range measurement status is not valid: %s", range_status);
