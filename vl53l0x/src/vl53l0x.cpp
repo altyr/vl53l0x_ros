@@ -78,6 +78,7 @@ int main(int argc, char **argv)
 
 	// Setup sensor
 	VL53L0X_SetXTalkCompensationRateMegaCps(dev, 0); // Disable crosstalk compensation
+	VL53L0X_SetDeviceMode(dev, VL53L0X_DEVICEMODE_SINGLE_RANGING);
 	VL53L0X_SetMeasurementTimingBudgetMicroSeconds(dev, round(timing_budget * 1e6));
 
 	// Start sensor

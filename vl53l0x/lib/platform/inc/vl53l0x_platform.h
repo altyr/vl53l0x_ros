@@ -30,6 +30,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _VL53L0X_PLATFORM_H_
 #define _VL53L0X_PLATFORM_H_
 
+#ifndef USE_I2C_2V8
+#define USE_I2C_2V8
+#endif
+
 #include "vl53l0x_def.h"
 #include "vl53l0x_platform_log.h"
 
